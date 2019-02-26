@@ -13,5 +13,5 @@ RUN set -x && \
 
 EXPOSE 8100 35729
 
-# CMD ["ionic", "serve"]
-CMD ["ionic", "serve", "--all", "--port", "8100", "--livereload-port", "35729"]
+CMD ["ionic", "serve"]
+# CMD ["ionic", "serve", "--all", "--port", "8100", "--livereload-port", "35729"]
