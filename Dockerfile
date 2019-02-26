@@ -1,12 +1,20 @@
-FROM node:8.11.3-alpine
+FROM node:10.11.0-alpine
 
-WORKDIR /app
+ENV NODE_ENV=development \
+    PATH=$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH \
+    CHOKIDAR_USEPOLLING=true
 
-RUN apk update && \
-    apk add git && \
-    npm install -g npm && \
-    npm install -g vue-cli
+ARG project_dir=/app/
+COPY . ${project_dir}
+WORKDIR ${project_dir}
 
-EXPOSE 9000
+RUN set -x && \
+    apk upgrade --no-cache && \
+    apk add --update --no-cache vim curl && \
+    curl -o- -L https://yarnpkg.com/install.sh | sh && \
+    yarn install && \
+    yarn global add @vue/cli
 
-CMD ["/bin/sh"]
+EXPOSE 8080
+
+CMD ["yarn", "serve"]
