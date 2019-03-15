@@ -5,10 +5,13 @@ COPY . ${project_dir}
 WORKDIR ${project_dir}
 
 RUN set -x && \
-    apk upgrade --no-cache && \
     apk add --update --no-cache git \
                                 vim && \
-    npm install -g cordova ionic grunt-cli gulp bower \
+    npm install -g cordova \
+                   ionic \
+                   grunt-cli \
+                   gulp \
+                   bower && \
     npm install
 
 EXPOSE 8100 35729
