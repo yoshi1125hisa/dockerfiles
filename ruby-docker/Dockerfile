@@ -1,4 +1,4 @@
-FROM ruby:2.4.2-alpine
+FROM ruby:2.6.3-alpine
 
 RUN set -x && \
     apk add --update --no-cache \
