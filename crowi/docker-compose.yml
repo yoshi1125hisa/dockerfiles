@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  crowi:
+    build: .
+    image: crowi:1.6.3
+    environment:
+      - MATHJAX=1
+      - PLANTUML_URI=http://localhost:18080
+      - PASSWORD_SEED=0660
+    ports:
+      - 8080:3000
+    volumes:
+      - ./crowi_data/uploads:/data/uploads
+    restart: always
+
+  db:
+    image: mongo:latest
+    volumes:
+      - ./mongodb_data/db:/data/db
+    restart: always
+
+  redis:
+    image: redis:alpine
+    restart: always
+
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.4
+    environment:
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    entrypoint:
+      - bash
+      - -c
+      - >-
+        elasticsearch-plugin list | grep -q analysis-kuromoji
+        || elasticsearch-plugin install analysis-kuromoji
+        && exec $$0 $$@
+    command:
+      - /bin/bash
+      - bin/es-docker
+    restart: always
+
+  plantuml:
+    image: plantuml/plantuml-server:latest
+    ports:
+      - 18080:8080
+    restart: always
