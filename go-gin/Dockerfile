@@ -1,4 +1,4 @@
-FROM golang:1.13-alpine
+FROM golang:1.14-alpine
 
 RUN set -x && \
     apk upgrade --no-cache && \
