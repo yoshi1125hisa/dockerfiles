@@ -1,4 +1,4 @@
-FROM node:10.19.0-alpine
+FROM node:16.3.0-alpine
 
 ENV NODE_ENV=development \
     PATH=$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH \
