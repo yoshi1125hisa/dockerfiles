@@ -1,4 +1,4 @@
-FROM swift:4.2.4
+FROM swift:5.4.1
 
 # USER root
 
